@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 eliminar_coma = ","
-for lista in range(1, 100):
+for lista in range(0, 100):
     if lista == 99:
         print(99)
     else:
