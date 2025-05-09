@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
 def islower(c):
-    x = ord('c')
-    minuscula = x.islower()
+    caracter = ord('c')
+    if caracter >= 97 and caracter <= 122:
+        return True
+    elif caracter >= 65 and caracter <= 90:
+        return False
 
