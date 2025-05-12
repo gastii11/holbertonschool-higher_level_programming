@@ -6,3 +6,5 @@ def element_at(my_list, idx):
         return None
     elif largo > largo:
         return None
+    else:
+        return largo - 1
