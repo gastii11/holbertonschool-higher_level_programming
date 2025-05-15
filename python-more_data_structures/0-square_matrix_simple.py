@@ -10,3 +10,4 @@ def square_matrix_simple(matrix=[]):
             fila_cuadrado.append(matrix[i][j] ** 2)
         matrix_cuadrada.append(fila_cuadrado)
     return matrix_cuadrada
+
