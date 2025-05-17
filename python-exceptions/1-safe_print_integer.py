@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 def safe_print_integer(value):
     try:
-    
-        print("{:d}".format(int(value)))
+        entero = int(value)
+        print("{:d}".format(value))
         return True
-    except (TypeError, ValueError) as e:
-        print({e})
+    except ValueError:
+        return False
+    except TypeError:
+        return False
 
