@@ -58,6 +58,7 @@ class Rectangle:
         """en forma de cadena"""
         if self.__width == 0 or self.__height == 0:
             return ""
+        return "\n".join([str(self.print_symbol) * self.width for _ in range(self.height)])
 
         rectangle_str = ""
         for i in range(self.__height):
