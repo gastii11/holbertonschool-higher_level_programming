@@ -39,9 +39,10 @@ class Rectangle:
         """arena del rectangulo"""
         return self.width * self.height
     
-    if width == 0 or height == 0:
-        perimeter = 0
 
     def perimeter(self):
         """perimetro de rectangulo"""
         return 2 * (self.width + self.height)
+    
+    if width == 0 or height == 0:
+        perimeter = 0
