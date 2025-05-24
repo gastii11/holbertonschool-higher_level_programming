@@ -38,15 +38,13 @@ class Rectangle:
     def area(self):
         """arena del rectangulo"""
         return self.width * self.height
-    
 
     def perimeter(self):
         """perimetro de rectangulo"""
         if self.width == 0 or self.height == 0:
             return 0
         return 2 * (self.width + self.height)
-    
-    
+
     def __str__(self):
         """en forma de cadena"""
         if self.__width == 0 or self.__height == 0:
@@ -59,6 +57,3 @@ class Rectangle:
                 rectangle_str += "\n"
 
         return rectangle_str
-
-
-         

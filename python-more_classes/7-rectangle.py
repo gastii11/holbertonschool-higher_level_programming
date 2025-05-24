@@ -7,8 +7,6 @@ class Rectangle:
 
     number_of_instances = 0
     print_symbol = "#"
-    
-
 
     def __init__(self, width=0, height=0):
         """inicializa una instancia de rectangulo"""
@@ -41,24 +39,20 @@ class Rectangle:
             raise ValueError("height must be >= 0")
         self.__height = value
 
-
     def area(self):
         """arena del rectangulo"""
         return self.width * self.height
-    
 
     def perimeter(self):
         """perimetro de rectangulo"""
         if self.width == 0 or self.height == 0:
             return 0
         return 2 * (self.width + self.height)
-    
-    
+
     def __str__(self):
         """en forma de cadena"""
         if self.__width == 0 or self.__height == 0:
             return ""
-        return "\n".join([str(self.print_symbol) * self.width for _ in range(self.height)])
 
         rectangle_str = ""
         for i in range(self.__height):
@@ -67,11 +61,11 @@ class Rectangle:
                 rectangle_str += "\n"
 
         return rectangle_str
-    
+
     def __repr__(self):
         """devuelve una representacion de cadena del rectangulo"""
         return f"Rectangle({self.width}, {self.height})"
-    
+
     def __del__(self):
         """imprime mensaje de despedida"""
         Rectangle.number_of_instances -= 1
