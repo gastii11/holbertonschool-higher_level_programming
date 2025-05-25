@@ -27,8 +27,6 @@ class Square:
 
         """ condiciones que tiene que cumplir"""
 
-
     def area(self):
         return self.__size ** 2
         """retorna el area cuadrada"""
-    

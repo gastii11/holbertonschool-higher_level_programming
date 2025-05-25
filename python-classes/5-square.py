@@ -27,11 +27,10 @@ class Square:
 
         """ condiciones que tiene que cumplir"""
 
-
     def area(self):
         return self.__size ** 2
         """retorna el area cuadrada"""
-    
+
     def my_print(self):
         if self.size == 0:
             print()
