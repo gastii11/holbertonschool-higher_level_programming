@@ -8,6 +8,7 @@ class Square:
     def __init__(self, size=0, position=(0, 0)):
         """ inicialice el tamaño de un cuadrado"""
         self.__size = size
+        self.position = position
 
     @property
     def size(self):
@@ -46,7 +47,10 @@ class Square:
     def my_print(self):
         if self.size == 0:
             print()
-        for fila in range(self.size):
-            for columna in range(self.size):
-                print("#", end="")
+            return
+
+        for _ in range(self.__position[1]):
             print()
+
+        for _ in range(self.__size):
+            print(" " * self.__position[0] + "#" * self.__size)
