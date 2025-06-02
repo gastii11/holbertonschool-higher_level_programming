@@ -1,4 +1,4 @@
-#!/urs/bin/python3
+#!/usr/bin/python3
 """objeto a partir de un archivo JSON"""
 import json
 
