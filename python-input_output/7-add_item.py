@@ -12,4 +12,4 @@ def save_to_json_file(my_obj, filename):
 def load_from_json_file(filename):
     """carga un objeto de un archivo json"""
     with open(filename, 'r') as add_item:
-        return json.load(f)
+        return json.load(add_item)
