@@ -6,7 +6,7 @@ import json
 def save_to_json_file(my_obj, filename):
     """guarda un objeto json"""
     with open(filename, 'w') as add_item:
-        json.dump(my_obj, f, indent=4)
+        json.dump(my_obj, add_item, indent=4)
 
 
 def load_from_json_file(filename):
