@@ -1,15 +1,23 @@
 #!/usr/bin/python3
 """añade y guarda argumentos"""
-import json
+import os
+import sys
 
 
-def save_to_json_file(my_obj, filename):
-    """guarda un objeto json"""
-    with open(filename, 'w') as add_item:
-        json.dump(my_obj, add_item, indent=4)
+save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
+load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
+
+filename = "add.item.json"
+
+if os.path.exists(filename):
+    try:
+        items = load_from_json_file(filename)
+    except Exception:
+        items = []
+else:
+    items = []
+
+items.extend(sys.argv[1:])
 
 
-def load_from_json_file(filename):
-    """carga un objeto de un archivo json"""
-    with open(filename, 'r') as add_item:
-        return json.load(add_item)
+save_to_json_file(items, filename)
