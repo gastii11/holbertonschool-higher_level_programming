@@ -1,23 +1,26 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 import csv
 import json
+import os
 
 
 def convert_csv_to_json(csv_filename):
     try:
-        data = []
-        with open(csv_filename, 'r', encoding='utf-8') as task_02_cvs:
-            cvs_reader = csv.DictReader(task_02_cvs)
-            for row in cvs_reader:
-                data.append(row)
+        if not os.path.exists(csv_filename):
+            with open('data.json', 'w') as json_file:
+                json.dump([], json_file)
+            return False
 
-        json_data = json.dump(data, indent=4)
+        with open(csv_filename, 'r') as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            data = list(csv_reader)
 
-        with open('data.json', 'w', encoding='utf-8') as json_file:
-            json_file.write(json_data)
+        with open('data.json', 'w') as json_file:
+            json.dump(data, json_file, indent=4)
 
         return True
-    except FileNotFoundError:
-        return False
+
     except Exception as e:
+        with open('data.json', 'w') as json_file:
+            json.dump([], json_file)
         return False
