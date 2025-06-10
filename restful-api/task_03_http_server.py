@@ -1,42 +1,47 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+"""
+A simple HTTP server implementing a basic API
+"""
 import http.server
 import socketserver
 import json
+import socket
 
-class MyHandler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == "/":
-            self.send_response(200)
-            self.send_header("Content-type", "text/plain")
-            self.end_headers()
-            self.wfile.write(b"Hello, this is a simple API!")
 
-        elif self.path == "/data":
-            data = {
-                "name": "John",
-                "age": 30,
-                "city": "New York"
-            }
-            self.send_response(200)
-            self.send_header("Content-type", "application/json")
-            self.end_headers()
-            self.wfile.write(json.dumps(data).encode("utf-8"))
+class SimpleAPIHandler(http.server.BaseHTTPRequestHandler):
+    """Handler for our simple API server"""
 
-        elif self.path == "/status":
+    def do_GET(self): 
+        """Handle GET requests"""
+        if self.path == '/':
             self.send_response(200)
-            self.send_header("Content-type", "text/plain")
+            self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            self.wfile.write(b"OK")
+            self.wfile.write("Hello, this is a simple API!".encode())
+
+        elif self.path == '/data':
+            data = {"name": "John", "age": 30, "city": "New York"}
+
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+
+            self.wfile.write(json.dumps(data).encode())
+
+        elif self.path == '/status':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write("OK".encode())
 
         else:
             self.send_response(404)
-            self.send_header("Content-type", "text/plain")
+            self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            self.wfile.write(b"Not Found")  # <-- Asegúrate que este texto es EXACTAMENTE lo que el test espera
+            self.wfile.write("Endpoint not found".encode())
 
 PORT = 8000
 
-with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
-    print(f"Server running on http://localhost:{PORT}")
+with socketserver.TCPServer(("", PORT), SimpleAPIHandler) as httpd:
+    print(f"Server running at http://localhost:{PORT}")
     httpd.serve_forever()
-
