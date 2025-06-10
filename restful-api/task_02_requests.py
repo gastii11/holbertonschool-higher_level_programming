@@ -17,7 +17,7 @@ def fetch_and_save_posts():
                 'body': post['body']
             })
 
-        with open('post.csv', mode='w', newline='', encoding='utf-8') as csvfile
-        writer = csv.DictWriter(file, fieldnames=['id', 'title', 'body'])
-        writer.writeheader()
-        writer.writerows(simplified_posts)
+        with open('post.csv', mode='w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.DictWriter(file, fieldnames=['id', 'title', 'body'])
+            writer.writeheader()
+            writer.writerows(simplified_posts)
