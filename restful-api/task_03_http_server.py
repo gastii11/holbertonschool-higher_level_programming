@@ -32,7 +32,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
             self.send_response(404)
             self.send_header("Content-type", "text/plain")
             self.end_headers()
-            self.wfile.write(b"404 Not Found")  # <-- Asegúrate que este texto es EXACTAMENTE lo que el test espera
+            self.wfile.write(b"Not Found")  # <-- Asegúrate que este texto es EXACTAMENTE lo que el test espera
 
 PORT = 8000
 
