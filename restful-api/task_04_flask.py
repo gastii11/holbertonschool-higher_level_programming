@@ -2,30 +2,19 @@
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
-
-users = {
-    "jane": {"nombre": "Jane", "age": 28, "ciudad": "Los Angeles"},
-    }
+users = {}
 
 @app.route('/')
 def home():
-    return 'Bienvenido a la API de flask'
-
-@app.route('/data')
-def get_usernames():
-    return jsonify(list(users.keys()))
+    return "API RESTful funcionando", 200
 
 @app.route('/status')
 def status():
-    return "OK"
+    return jsonify({"status": "ok"}), 200
 
-@app.route('/users/<username>')
-def get_user(username):
-    user = users.get(username)
-    if user:
-        return jsonify(user)
-    else:
-        return jsonify({"error": "Usuario no encontrado"}), 404
+@app.route('/data')
+def data():
+    return jsonify({"users": users}), 200
 
 @app.route('/add_user', methods=['POST'])
 def add_user():
@@ -36,7 +25,6 @@ def add_user():
         return jsonify({"error": "Falta el nombre de usuario"}), 400
     if username in users:
         return jsonify({"error": "El usuario ya existe"}), 400
-
 
     users[username] = {
         "name": data.get("name"),
@@ -49,5 +37,8 @@ def add_user():
         "user": users[username]
     }), 201
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/users/<username>')
+def get_user(username):
+    if username not in users:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+    return jsonify({"user": users[username]}), 200
