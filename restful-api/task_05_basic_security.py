@@ -13,19 +13,40 @@ from flask_jwt_extended import JWTManager
 app = Flask(__name__)
 
 auth = HTTPBasicAuth()
-app.config["JWT_SECRET_KEY"] = ":@:$!!I'mN0tAp4ssw0rd:$!!:@"
+app.config["JWT_SECRET_KEY"] = "kL9f$0P!2h6*GzB#7fPqW8qjXn@eTzR1"
 jwt = JWTManager(app)
+
+@jwt.unauthorized_loader
+def handle_missing_token(error):
+    return jsonify({"error": "Missing or invalid token"}), 401
+
+@jwt.invalid_token_loader
+def handle_invalid_token(error):
+    return jsonify({"error": "Invalid token"}), 401
+
+@jwt.expired_token_loader
+def handle_expired_token(jwt_header, jwt_payload):
+    return jsonify({"error": "Token has expired"}), 401
+
+@jwt.revoked_token_loader
+def handle_revoked_token(jwt_header, jwt_payload):
+    return jsonify({"error": "Token has been revoked"}), 401
+
+@jwt.needs_fresh_token_loader
+def handle_fresh_token(error):
+    return jsonify({"error": "Fresh token required"}), 401
+
 
 
 users = {
-    "fede": {
-        "username": "Federico",
-        "password": generate_password_hash("fede1234"),
+    "User1": {
+        "username": "Gaston",
+        "password": generate_password_hash("123gast11"),
         "role": "user",
     },
-    "holberton": {
+    "User2": {
         "username": "Holberton",
-        "password": generate_password_hash("Holberton10647"),
+        "password": generate_password_hash("holberton87456"),
         "role": "admin",
     },
 }
@@ -50,6 +71,15 @@ def verify_password(username, password):
 def basic_auth():
     return f"Basic Auth: Access Granted"
 
+@app.get("/admin-only")
+@jwt_required()
+def admin_only():
+    claims = get_jwt()
+    role = claims.get("role")
+    if role != "admin":
+        return jsonify({"error": "admin access required"}), 403
+    return "admin access: granted"
+
 
 @app.post("/login")
 def login():
@@ -60,7 +90,7 @@ def login():
     if not user or not check_password_hash(user["password"], password):
         return jsonify({"error": "Unauthorized"}), 401
 
-    access_token = create_access_token(identity=username)
+    access_token = create_access_token(identity=username, additional_claims={"role": user["role"]})
     return jsonify(access_token=access_token)
 
 
