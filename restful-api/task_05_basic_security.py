@@ -3,91 +3,73 @@
 from flask import Flask, jsonify, request
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import (
-    JWTManager, create_access_token,
-    jwt_required, get_jwt_identity
-)
+
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+
 
 app = Flask(__name__)
+
 auth = HTTPBasicAuth()
-
-
-app.config['JWT_SECRET_KEY'] = 'super-strong-secret-key'
+app.config["JWT_SECRET_KEY"] = ":@:$!!I'mN0tAp4ssw0rd:$!!:@"
 jwt = JWTManager(app)
 
+
 users = {
-    "user1": {
-        "username": "user1",
-        "password": generate_password_hash("password"),
-        "role": "user"
+    "fede": {
+        "username": "Federico",
+        "password": generate_password_hash("fede1234"),
+        "role": "user",
     },
-    "admin1": {
-        "username": "admin1",
-        "password": generate_password_hash("password"),
-        "role": "admin"
-    }
+    "holberton": {
+        "username": "Holberton",
+        "password": generate_password_hash("Holberton10647"),
+        "role": "admin",
+    },
 }
+
+
+@auth.error_handler
+def unauthorized():
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 @auth.verify_password
 def verify_password(username, password):
     user = users.get(username)
-    if user and check_password_hash(user["password"], password):
-        return username
-    return None
+    if user is None:
+        return None
+    if check_password_hash(user["password"], password):
+        return user
 
 
-@app.route("/basic-protected")
+@app.get("/basic-protected")
 @auth.login_required
-def basic_protected():
-    return "Basic Auth: Access Granted"
+def basic_auth():
+    return f"Basic Auth: Access Granted"
 
 
-@app.route("/login", methods=["POST"])
+@app.post("/login")
 def login():
-    data = request.get_json()
-    username = data.get("username")
-    password = data.get("password")
-    
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
     user = users.get(username)
+
     if not user or not check_password_hash(user["password"], password):
-        return jsonify({"error": "Invalid credentials"}), 401
-    
-    
-    token = create_access_token(identity={"username": username, "role": user["role"]})
-    return jsonify({"access_token": token})
+        return jsonify({"error": "Unauthorized"}), 401
+
+    access_token = create_access_token(identity=username)
+    return jsonify(access_token=access_token)
 
 
-@app.route("/jwt-protected")
+@app.get("/jwt-protected")
 @jwt_required()
-def jwt_protected():
-    return "JWT Auth: Access Granted"
-
-
-@app.route("/admin-only")
-@jwt_required()
-def admin_only():
-    identity = get_jwt_identity()
-    if identity["role"] != "admin":
-        return jsonify({"error": "Admin access required"}), 403
-    return "Admin Access: Granted"
-
-
-# Manejadores de errores JWT
-@jwt.unauthorized_loader
-def handle_unauthorized_error(err):
-    return jsonify({"error": "Unauthorized"}), 401
-
-
-@jwt.invalid_token_loader
-def handle_invalid_token_error(err):
-    return jsonify({"error": "Unauthorized"}), 401
-
-
-@jwt.expired_token_loader
-def handle_expired_token_error(jwt_header, jwt_payload):
-    return jsonify({"error": "Token has expired"}), 401
+def protected():
+    current_user = get_jwt_identity()
+    return f"JWT Auth: Access Granted"
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
