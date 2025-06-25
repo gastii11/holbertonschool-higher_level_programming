@@ -1,4 +1,4 @@
 -- Lista de los registros
-SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE
-FROM INFORMATION_SCHEMA.COLUMN
-WHERE TABLE_NAME = 'second_table' AND TABLE_SCHEMA = 'hbtn_0c_0'
+SELECT score, name
+FROM second_table
+ORDER BY score DESC;
