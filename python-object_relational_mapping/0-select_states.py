@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Este módulo se conecta a una base de datos MySQL y lista todos los estados"""
+"""Este módulo se conecta a una base de datos y lista todos los estados"""
 
 import MySQLdb
 import sys
