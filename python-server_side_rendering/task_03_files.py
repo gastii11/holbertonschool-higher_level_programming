@@ -48,7 +48,7 @@ def products():
             pid = int(product_id)
             data = [item for item in data if int(item["id"]) == pid]
             if not data:
-                error_message = f"Product with ID {pid} not found."
+                error_message = "Product not found"
         except ValueError:
             error_message = "Invalid ID. It must be a number."
             data = []
