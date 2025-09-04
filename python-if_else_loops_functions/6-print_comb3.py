@@ -1,4 +1,8 @@
 #!/usr/bin/python3
 for i in range(0, 9):
-    for j range(i + 1)
-    print("{:02d}".format(i), end=", " if i < 99 else "\n")
+    for j in range(i + 1, 10):
+        if i < j:
+            if i != 8:
+                print("{}{}, ".format(i, j), end="")
+            else:
+                print("89")
