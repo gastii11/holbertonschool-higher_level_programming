@@ -6,4 +6,4 @@ def search_replace(my_list, search, replace):
             nueva.append(replace)
         else:
             nueva.append(i)
-        return nueva
+    return nueva
