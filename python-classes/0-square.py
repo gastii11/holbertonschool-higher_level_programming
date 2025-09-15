@@ -3,4 +3,5 @@
 
 
 class Square:
+    """clase cuadrada"""
     pass
