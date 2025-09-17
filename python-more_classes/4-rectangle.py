@@ -48,4 +48,4 @@ class Rectangle:
             print("#" * self.__width)
     
     def __repr__(self):
-        return f"Rectangle(width={self.width}, height={self.height})"
+        return f"Rectangle(width={self.__width}, height={self.__height})"
