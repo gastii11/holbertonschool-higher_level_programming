@@ -47,6 +47,7 @@ class Rectangle:
     def __str__(self):
         if self.__width == 0 or self.__height == 0:
             return ""
+        return f"MyClass instance with value: {self.value} {Rectangle.print_symbol}"
         return "\n".join(["#" * self.__width for _ in range(self.__height)])
 
     def __repr__(self):
