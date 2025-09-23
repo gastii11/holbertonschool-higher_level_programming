@@ -1,0 +1,31 @@
+BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
+# Crear instancia
+>>> bg = BaseGeometry()
+
+# Llamar a area() debe lanzar excepción
+>>> bg.area()
+Traceback (most recent call last):
+...
+Exception: area() is not implemented
+
+# Validación correcta
+>>> bg.integer_validator("my_int", 5)
+
+# Si no es entero
+>>> bg.integer_validator("age", "10")
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+
+# Si es cero
+>>> bg.integer_validator("width", 0)
+Traceback (most recent call last):
+...
+ValueError: width must be greater than 0
+
+# Si es negativo
+>>> bg.integer_validator("height", -3)
+Traceback (most recent call last):
+...
+ValueError: height must be greater than 0
