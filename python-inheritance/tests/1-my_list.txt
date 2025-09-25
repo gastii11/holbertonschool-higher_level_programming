@@ -1,17 +1,16 @@
->>>empty_list = MyList()
->>>empty_list.print_sorted()
+>>> empty_list = MyList()
+>>> empty_list.print_sorted()
 
->>>single = MyList([7])
->>>single.print_sorted() 
+>>> single = MyList([7])
+>>> single.print_sorted() 
 
->>>nums = MyList([5, 3, 3, 2, 5, 1])
->>>print(nums)             
->>>nums.print_sorted()     
->>>print(nums)
+>>> nums = MyList([5, 3, 3, 2, 5, 1])
+>>> print(nums)             
+>>> nums.print_sorted()     
+>>> print(nums)
 
->>>print(issubclass(MyList, list))
+>>> print(issubclass(MyList, list))
 
->>>nums = MyList([10, 2, 7])
->>>nums.extend([5, 1])
->>>nums.print_sorted()
-
+>>> nums = MyList([10, 2, 7])
+>>> nums.extend([5, 1])
+>>> nums.print_sorted()
