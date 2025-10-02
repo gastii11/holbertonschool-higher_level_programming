@@ -17,7 +17,7 @@ class CustomObject:
     
     def serialize(self, filename):
         try:
-            with open('filename', 'wb') as f:
+            with open(filename, 'wb') as f:
                 pickle.dump(self, f)
         except Exception as e:
             print(f"Error: {e}")
@@ -27,6 +27,6 @@ class CustomObject:
         try:
             with open(filename, "rb") as f:
                 obj = pickle.load(f)
-                return obj
+            return obj
         except (FileNotFoundError, pickle.UnpicklingError):
             return None
