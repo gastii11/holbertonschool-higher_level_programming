@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import pickle
-import json
+
 
 class CustomObject:
     def __init__(self, name=str, age=int, is_student=bool):
