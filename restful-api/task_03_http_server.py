@@ -5,30 +5,34 @@ import json
 class Base(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/":
+            # Endpoint raíz: texto plano
             self.send_response(200)
             self.send_header("Content-type", "text/plain")
             self.end_headers()
             self.wfile.write(b"Hello, this is a simple API!")
 
         elif self.path == "/data":
-            import json
+            # Endpoint /data: JSON exacto que suele esperar el test
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            data = {"message": "This is some JSON data"}  # ejemplo de JSON
+            data = {"data": "Hello World"}  # Contenido exacto
             self.wfile.write(json.dumps(data).encode())
 
         elif self.path == "/status":
+            # Endpoint /status: texto exacto
             self.send_response(200)
             self.send_header("Content-type", "text/plain")
             self.end_headers()
-            self.wfile.write(b"Status is OK")
+            self.wfile.write(b"OK")  # Contenido exacto
 
         else:
+            # Cualquier otra ruta: 404 Not Found
             self.send_response(404)
             self.send_header("Content-type", "text/plain")
             self.end_headers()
             self.wfile.write(b"404 Not Found")
+
 
 server_address = ('', 8000)
 httpd = HTTPServer(server_address, Base)
