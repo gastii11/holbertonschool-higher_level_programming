@@ -1,4 +1,5 @@
 import requests
+import csv 
 
 response = requests.get("https://jsonplaceholder.typicode.com/posts")
 
@@ -42,6 +43,6 @@ if response.status_code == 200:
 
                 writer.writerows(filtered_posts)
 
-            print("Archivo 'posts.csv' creado exitosamente ✅")
+            print("Archivo 'posts.csv' creado exitosamente")
         else:
             print(f"Error al obtener los posts. Código de estado: {response.status_code}")
