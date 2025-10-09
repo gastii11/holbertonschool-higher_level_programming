@@ -4,7 +4,7 @@ from flask import request
 
 app = Flask(__name__)
 
-users = {"jane": {"name": "Jane", "age": 28, "city": "Los Angeles"}}
+users = {}
 
 @app.route("/")
 def home():
@@ -25,7 +25,7 @@ def get_user(username):
     if user:
         return jsonify(user)
     else:
-        return jsonify({"error": "User Error"}), 404
+        return jsonify({"error": "User not found"}), 404
 
 @app.route("/add_user", methods=['POST'])
 def add_user():
