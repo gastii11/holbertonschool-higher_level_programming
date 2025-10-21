@@ -1,2 +1,2 @@
--- cree una base de datos
+-- enumera todas las bases de datos
 SHOW DATABASES;
