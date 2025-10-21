@@ -1,2 +1,2 @@
 -- Contador de registros de id
-SELECT COUNT(*) FROM first_table;
+SELECT COUNT(id) FROM first_table;
