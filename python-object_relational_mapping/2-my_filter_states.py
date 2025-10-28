@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Muestra lso valores de la tabla"""
 
 import MySQLdb
 import sys
