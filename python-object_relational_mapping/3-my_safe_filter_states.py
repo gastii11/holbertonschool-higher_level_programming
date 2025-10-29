@@ -3,6 +3,7 @@
 import sys
 import MySQLdb
 
+
 def list_states_safe():
     """
     Conecta a la base de datos MySQL y ejecuta una consulta SELECT segura,
@@ -38,7 +39,7 @@ def list_states_safe():
             print(state)
 
     except MySQLdb.Error as e:
-        print(f"Error al conectar o ejecutar la consulta: {e}", file=sys.stderr)
+        print(f'Error al conectar o ejecutar la consulta: {e}' file=sys.stderr)
         sys.exit(1)
 
     finally:
