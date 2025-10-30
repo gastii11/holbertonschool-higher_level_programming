@@ -10,7 +10,7 @@ Base = declarative_base()
 
 
 class State(Base):
-    """State class that represents the 'states' table in MySQL."""
+    """Clase de estado que representa la tabla «states» en MySQL"""
     __tablename__ = 'states'
 
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
