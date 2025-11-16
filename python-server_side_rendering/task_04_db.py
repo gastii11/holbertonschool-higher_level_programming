@@ -18,7 +18,6 @@ def get_from_sql(id=None):
         rows = cursor.fetchall()
         conn.close()
 
-        # Convertir a formato dict para enviarlo al template
         products = [
             {"id": r[0], "name": r[1], "category": r[2], "price": r[3]}
             for r in rows
@@ -48,7 +47,6 @@ def products():
             reader = csv.DictReader(f)
             data = list(reader)
 
-        # convertir strings a tipos correctos
         for p in data:
             p["id"] = int(p["id"])
             p["price"] = float(p["price"])
@@ -58,7 +56,6 @@ def products():
     elif source == "sql":
         products = get_from_sql(product_id)
 
-        # Si hubo un error en BD
         if isinstance(products, dict) and "error" in products:
             return f"Database error: {products['error']}"
 
@@ -66,3 +63,7 @@ def products():
         return "Wrong source"
 
     return render_template("product_display.html", products=products)
+
+# 🔥 ESTA PARTE FALTABA
+if __name__ == '__main__':
+    app.run(debug=False)
